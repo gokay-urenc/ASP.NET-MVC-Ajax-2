@@ -1,0 +1,41 @@
+﻿@model List<Category>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-5 col-lg-5">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Kategori Adı</th>
+                    <th>Açıklaması</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.CategoryID</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.Description</td>
+                    <td>@Ajax.ActionLink("Ürünlerini Göster", "Urunler", "Kategori", new { id = item.CategoryID }, new AjaxOptions { HttpMethod = "GET", OnSuccess = "kategoriUrunleri" }, new { @class = "btn btn-info" })</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-1 col-lg-1"></div>
+    <div class="col-md-6 col-lg-6" id="urun"></div>
+</div>
+
+<script>
+    function kategoriUrunleri(sonuc) {
+        $('#urun').html("");
+        $.each(sonuc, function (index, veri) {
+            $('#urun').append("<div>" + veri.UrunAdi + "</div > ")
+        }) // each, C#'taki foreach methodudur. İlk parametre olarak dönülecek diziyi ister. İkinci parametre olarak function ister ve function'a parametre yazarsak ilk parametre verinin index numarasını, 2.parametre verinin kendisini ifade eder.
+    }
+</script>

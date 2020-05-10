@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.8.0.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+</head>
+<body>
+    <div>
+        <a href="/Kategori/Index">Kategori Index Sayfasına Git</a>
+        @using (Html.BeginForm())
+        {
+            <input type="text" id="sayi1" />
+            <br />
+            <input type="text" id="sayi2" />
+            <br />
+            <input type="submit" id="Hesapla" />
+        }
+        <hr />
+
+        @using (Ajax.BeginForm("Topla", new AjaxOptions { OnSuccess = "sonuc" , OnFailure = "hata" })) // OnSuccess ve benzeri propertylere verilen değerler ajax işleminin döneceği bir script ismidir. Ajax işlemi, sonucu bu script'in parametresine döner.
+        {
+            <input type="text" id="sayi1" name="sayi1"/>
+            <br />
+            <input type="text" id="sayi2" name="sayi2"/>
+            <br />
+            <input type="submit" id="Hesapla" />
+        }
+        <h3 id="gelenSonuc"></h3>
+    </div>
+    <script>
+        function sonuc(prm) {
+            $('#gelenSonuc').html(prm);
+        }
+        function hata(err) {
+            debugger
+        }
+    </script>
+</body>
+</html>
